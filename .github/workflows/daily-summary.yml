@@ -29,6 +29,16 @@ jobs:
       - name: Prepare GitHub Actions config
         run: cp data/config.github.json data/config.json
 
+      - name: Debug - Show config.json content
+        run: |
+          echo "=== Current config.json ==="
+          cat data/config.json
+          echo "==========================="
+      
+      - name: Debug - Show JSON syntax validation
+        run: |
+          python3 -c "import json; json.load(open('data/config.json'))" && echo "✅ JSON is valid" || echo "❌ JSON is invalid"
+
       - name: Run Horizon
         env:
           # Map secrets to environment variables expected by config.json
