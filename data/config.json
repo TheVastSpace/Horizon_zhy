@@ -1,0 +1,73 @@
+{
+  "ai": {
+    "provider": "gemini",
+    "model": "gemini-2.0-flash",
+    "api_key_env": "GOOGLE_API_KEY"
+    "throttle_sec": 0
+  },
+  "sources": {
+    "hackernews": {
+      "enabled": true,
+      "fetch_top_stories": 30,
+      "min_score": 100
+    },
+    "reddit": {
+      "enabled": true,
+      "subreddits": [
+        {
+          "subreddit": "MachineLearning",
+          "sort": "hot",
+          "fetch_limit": 15,
+          "min_score": 50
+        },
+        {
+          "subreddit": "LocalLLaMA",
+          "sort": "hot",
+          "fetch_limit": 15,
+          "min_score": 30
+        },
+        {
+          "subreddit": "artificial",
+          "sort": "hot",
+          "fetch_limit": 10,
+          "min_score": 50
+        }
+      ],
+      "fetch_comments": 5
+    },
+    "rss": [
+      {
+        "name": "Simon Willison",
+        "url": "https://simonwillison.net/atom/everything/",
+        "enabled": true,
+        "category": "ai-tools"
+      },
+      {
+        "name": "OpenAI Blog",
+        "url": "https://openai.com/blog/rss.xml",
+        "enabled": true,
+        "category": "ai-official"
+      },
+      {
+        "name": "Anthropic Blog",
+        "url": "https://www.anthropic.com/feed.xml",
+        "enabled": true,
+        "category": "ai-official"
+      }
+    ],
+    "github": [
+      {
+        "type": "repo_releases",
+        "owner": "openai",
+        "repo": "whisper",
+        "enabled": true
+      },
+      {
+        "type": "repo_releases",
+        "owner": "anthropics",
+        "repo": "claude-code",
+        "enabled": true
+      }
+    ]
+  }
+}
