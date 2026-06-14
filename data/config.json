@@ -2,7 +2,8 @@
   "ai": {
     "provider": "gemini",
     "model": "gemini-2.0-flash",
-    "api_key_env": "GOOGLE_API_KEY"
+    "api_key_env": "GOOGLE_API_KEY",
+    "base_url": "https://oa.api2d.net",
     "throttle_sec": 0
   },
   "sources": {
