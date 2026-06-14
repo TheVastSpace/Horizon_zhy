@@ -1,9 +1,9 @@
 {
   "ai": {
     "provider": "openai",
-    "model": "o3-mini",
+    "model": "deepseek-v4-flash",
     "api_key_env": "OPENAI_API_KEY",
-    "base_url": "https://oa.api2d.net",
+    "base_url": "https://api.deepseek.com",
     "throttle_sec": 0
   },
   "sources": {
