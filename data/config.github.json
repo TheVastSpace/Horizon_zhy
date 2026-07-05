@@ -123,11 +123,28 @@
   "url_env": "HORIZON_WEBHOOK_URL",
   "delivery": "summary",
   "platform": "feishu",
-  "layout": "markdown",
   "request_body": {
-    "msg_type": "text",
-    "content": {
-      "text": "Horizon 测试消息 - 如果看到这条，说明 Webhook 配置正确"
+    "msg_type": "interactive",
+    "card": {
+      "schema": "2.0",
+      "config": {
+        "wide_screen_mode": true
+      },
+      "header": {
+        "title": {
+          "tag": "plain_text",
+          "content": "📊 Horizon 日报"
+        },
+        "template": "blue"
+      },
+      "body": {
+        "elements": [
+          {
+            "tag": "markdown",
+            "content": "### 📈 今日摘要\n\n#{summary}"
+          }
+        ]
+      }
     }
   }
 }
