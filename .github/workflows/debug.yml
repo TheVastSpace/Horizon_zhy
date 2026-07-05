@@ -1,0 +1,105 @@
+name: 🔍 Horizon 诊断
+
+on:
+  workflow_dispatch:  # 手动触发
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 安装 uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: 安装依赖
+        run: uv sync
+
+      - name: 🔍 1. 检查 Secret 是否存在
+        run: |
+          if [ -n "${{ secrets.HORIZON_WEBHOOK_URL }}" ]; then
+            echo "✅ HORIZON_WEBHOOK_URL 存在"
+            echo "前10字符: $(echo '${{ secrets.HORIZON_WEBHOOK_URL }}' | cut -c1-10)..."
+          else
+            echo "❌ HORIZON_WEBHOOK_URL 不存在"
+          fi
+
+      - name: 🔍 2. 测试 Webhook 连通性
+        run: |
+          echo "发送测试消息到飞书..."
+          RESPONSE=$(curl -X POST "${{ secrets.HORIZON_WEBHOOK_URL }}" \
+            -H "Content-Type: application/json" \
+            -d '{"msg_type":"text","content":{"text":"🧪 诊断测试 - $(date -u +'%Y-%m-%d %H:%M:%S UTC')"}}' \
+            -w "\n%{http_code}" \
+            -s)
+          echo "$RESPONSE"
+          HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+          if [ "$HTTP_CODE" = "200" ]; then
+            echo "✅ Webhook 连通性正常"
+          else
+            echo "❌ Webhook 返回 HTTP $HTTP_CODE"
+          fi
+
+      - name: 🔍 3. 查看 config.github.json 内容
+        run: |
+          echo "=== data/config.github.json 内容 ==="
+          cat data/config.github.json | head -100
+          echo "===================================="
+
+      - name: 🔍 4. 验证 config.json 合法性
+        run: |
+          python3 -c "
+import json
+try:
+    with open('data/config.json') as f:
+        data = json.load(f)
+    print('✅ config.json 格式正确')
+    # 检查 webhook 配置
+    w = data.get('webhook', {})
+    print(f'webhook.enabled: {w.get(\"enabled\")}')
+    print(f'webhook.delivery: {w.get(\"delivery\")}')
+    print(f'webhook.url_env: {w.get(\"url_env\")}')
+    print(f'webhook.platform: {w.get(\"platform\")}')
+    print(f'webhook 是否有 request_body: {\"request_body\" in w}')
+except Exception as e:
+    print(f'❌ 配置错误: {e}')
+    exit(1)
+"
+
+      - name: 🔍 5. 运行 Horizon（带详细日志）
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          HORIZON_WEBHOOK_URL: ${{ secrets.HORIZON_WEBHOOK_URL }}
+        run: |
+          echo "开始运行 Horizon..."
+          uv run horizon --hours 24 --verbose 2>&1 | tee horizon.log
+          echo "=========================="
+          echo "运行完成，退出码: $?"
+
+      - name: 🔍 6. 显示 Horizon 日志（最后200行）
+        if: always()
+        run: |
+          echo "=== Horizon 日志（最后200行）==="
+          tail -200 horizon.log || echo "没有日志文件"
+          echo "================================="
+
+      - name: 🔍 7. 搜索关键信息
+        if: always()
+        run: |
+          echo "=== 搜索 [Webhook] ==="
+          grep -i "webhook" horizon.log || echo "没有 webhook 相关日志"
+          echo ""
+          echo "=== 搜索 error ==="
+          grep -i "error" horizon.log || echo "没有 error"
+          echo ""
+          echo "=== 搜索 summary ==="
+          grep -i "summary" horizon.log || echo "没有 summary"
+          echo ""
+          echo "=== 搜索 OpenAI ==="
+          grep -i "openai" horizon.log || echo "没有 openai"
