@@ -118,46 +118,17 @@
     "default_group": "other",
     "default_group_limit": null
   },
-  "webhook": {
+   "webhook": {
     "enabled": true,
     "url_env": "HORIZON_WEBHOOK_URL",
     "delivery": "summary",
-    "overview_position": "first",
     "platform": "feishu",
     "layout": "markdown",
-    "fallback_layout": "markdown",
-    "languages": ["zh", "en"],
     "request_body": {
-      "msg_type": "interactive",
-      "card": {
-        "schema": "2.0",
-        "config": {
-          "wide_screen_mode": true
-        },
-        "header": {
-          "title": {
-            "tag": "plain_text",
-            "content": "#{message_title}"
-          },
-          "template": "blue"
-        },
-        "body": {
-          "elements": [
-            {
-              "tag": "markdown",
-              "content": "Horizon生成结果: #{result}\nHorizon日报重要资讯数量: #{important_items}/#{all_items}"
-            },
-            {
-              "tag": "hr"
-            },
-            {
-              "tag": "markdown",
-              "content": "#{summary}"
-            }
-          ]
-        }
+      "msg_type": "text",
+      "content": {
+        "text": "Horizon 测试消息 - 如果看到这条，说明 Webhook 配置正确"
       }
-    },
-    "headers": ""
   }
+}
 }
