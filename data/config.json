@@ -3,7 +3,7 @@
     "provider": "openai",
     "model": "gpt-5.4-mini",
     "api_key_env": "OPENAI_API_KEY",
-    "base_url": "https://ai.flashapi.top",
+    "base_url": "https://ai.flashapi.top/v1",
     "throttle_sec": 0
   },
   "sources": {
