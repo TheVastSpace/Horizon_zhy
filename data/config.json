@@ -69,6 +69,14 @@
         "repo": "claude-code",
         "enabled": true
       }
-    ]
+    ],
+    "webhook": {
+      "enabled": true,
+      "url_env": "HORIZON_WEBHOOK_URL",
+      "delivery": "summary",
+      "platform": "feishu",
+      "layout": "collapsible",
+      "languages": ["zh", "en"]
+    }
   }
 }
