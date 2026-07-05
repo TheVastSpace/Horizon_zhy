@@ -72,7 +72,7 @@
     ],
     "webhook": {
       "enabled": true,
-      "url_env": "HORIZON_WEBHOOK_URL",
+      "url_env": "https://open.feishu.cn/open-apis/bot/v2/hook/f993328b-c699-4c43-907e-26d67bcf5c61",
       "delivery": "summary",
       "platform": "feishu",
       "layout": "collapsible",
