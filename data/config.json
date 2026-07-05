@@ -1,9 +1,9 @@
 {
   "ai": {
     "provider": "openai",
-    "model": "o3-mini",
+    "model": "gpt-5.4-mini",
     "api_key_env": "OPENAI_API_KEY",
-    "base_url": "https://oa.api2d.net",
+    "base_url": "https://ai.flashapi.top",
     "throttle_sec": 0
   },
   "sources": {
