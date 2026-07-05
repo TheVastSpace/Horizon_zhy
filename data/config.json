@@ -70,5 +70,17 @@
         "enabled": true
       }
     ],
-  }
+  },
+  "filtering": {
+    "ai_score_threshold": 6.0,
+    "time_window_hours": 24
+  },
+  "webhook": {
+      "enabled": true,
+      "url_env": "HORIZON_WEBHOOK_URL",
+      "delivery": "summary",
+      "platform": "feishu",
+      "layout": "collapsible",
+      "languages": ["zh", "en"]
+    }
 }
