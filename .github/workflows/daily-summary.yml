@@ -20,25 +20,6 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: 🔍 Debug Webhook Secret
-        run: |
-          if [ -n "${{ secrets.HORIZON_WEBHOOK_URL }}" ]; then
-            echo "✅ HORIZON_WEBHOOK_URL 已设置 (长度: $(echo '${{ secrets.HORIZON_WEBHOOK_URL }}' | wc -c))"
-            # 脱敏显示前20个字符
-            echo "前20字符: $(echo '${{ secrets.HORIZON_WEBHOOK_URL }}' | cut -c1-20)..."
-          else
-            echo "❌ HORIZON_WEBHOOK_URL 未设置或为空"
-            exit 1
-          fi
-
-      - name: 🔍 测试 Webhook 连通性
-        run: |
-          curl -X POST "${{ secrets.HORIZON_WEBHOOK_URL }}" \
-            -H "Content-Type: application/json" \
-            -d '{"msg_type":"text","content":{"text":"🔔 GitHub Actions 测试消息 - $(date)"}}' \
-            -w "\nHTTP状态码: %{http_code}\n" \
-            --connect-timeout 10
-
       - name: Install uv
         uses: astral-sh/setup-uv@v3
 
