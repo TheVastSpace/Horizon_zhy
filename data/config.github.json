@@ -119,14 +119,14 @@
     "default_group_limit": null
   },
   "webhook": {
-    "enabled": false,
+    "enabled": true,
     "url_env": "HORIZON_WEBHOOK_URL",
     "delivery": "summary",
     "overview_position": "first",
-    "platform": "generic",
+    "platform": "feishu",
     "layout": "markdown",
     "fallback_layout": "markdown",
-    "languages": null,
+    "languages": ["zh", "en"],
     "request_body": {
       "msg_type": "interactive",
       "card": {
