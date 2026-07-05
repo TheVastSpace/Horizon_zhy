@@ -5,430 +5,407 @@ date: 2026-07-05
 lang: en
 ---
 
-> From 29 items, 18 important content pieces were selected
+> From 29 items, 17 important content pieces were selected
 
 ---
 
-1. [CDD Recovers Fine-Tuning Data from Logits](#item-1) ⭐️ 9.0/10
-2. [EU Fast-Tracks Chat Control Scanning](#item-2) ⭐️ 8.0/10
-3. [Competence Gate for Local Qwen Tool Use](#item-3) ⭐️ 8.0/10
-4. [shadcn/ui switches default foundation to Base UI](#item-4) ⭐️ 7.0/10
-5. [sqlite-utils 4.0rc2 heads toward stable release](#item-5) ⭐️ 7.0/10
-6. [New Claude Models Weaker at Pi Tool Calls](#item-6) ⭐️ 7.0/10
-7. [Current AI Launches Open Source AI Gap Map](#item-7) ⭐️ 7.0/10
-8. [Proactive Context Curator Postmortem](#item-8) ⭐️ 7.0/10
-9. [USAF Lets MoE Fine-Tuning Run on Inference-Ready GPUs](#item-9) ⭐️ 7.0/10
-10. [Organic Maps Debate Spurs Forks and Alternatives](#item-10) ⭐️ 6.0/10
-11. [Practical Guide to Compilers and Language Design](#item-11) ⭐️ 6.0/10
-12. [The Button Should Do One Clear Thing](#item-12) ⭐️ 6.0/10
-13. [Phosh 0.56.0 Released](#item-13) ⭐️ 6.0/10
-14. [Josh W. Comeau on AI Hurting Course Sales](#item-14) ⭐️ 6.0/10
-15. [Let Fable Use Its Own Judgment](#item-15) ⭐️ 6.0/10
-16. [Open-source neural network shape validator](#item-16) ⭐️ 6.0/10
-17. [H64LM: 249M-Parameter MoE Transformer in PyTorch](#item-17) ⭐️ 6.0/10
-18. [Semantic Compression for Longer LLM Sessions](#item-18) ⭐️ 6.0/10
+1. [CDD Recovers Finetune Data from Logits Alone](#item-1) ⭐️ 9.0/10
+2. [Organic Maps, governance debate, and CoMaps fork](#item-2) ⭐️ 8.0/10
+3. [EU Fast-Tracks Chat Control 1.0](#item-3) ⭐️ 8.0/10
+4. [Competence Gate for Qwen3.5-4B](#item-4) ⭐️ 8.0/10
+5. [USAF brings MoE fine-tuning to consumer GPUs](#item-5) ⭐️ 8.0/10
+6. [shadcn/ui switches default foundation to Base UI](#item-6) ⭐️ 7.0/10
+7. [New Claude Models Break Tool Schemas](#item-7) ⭐️ 7.0/10
+8. [Open Source AI Gap Map Launches](#item-8) ⭐️ 7.0/10
+9. [Proactive Context Curator for Coding Agents](#item-9) ⭐️ 7.0/10
+10. [H64LM: A From-Scratch 249M-Parameter MoE Transformer](#item-10) ⭐️ 7.0/10
+11. [Free Guide to Building a C-Style Compiler](#item-11) ⭐️ 6.0/10
+12. [Buttons Should Do One Clear Thing](#item-12) ⭐️ 6.0/10
+13. [Phosh 0.56.0 Released for Linux Phones](#item-13) ⭐️ 6.0/10
+14. [sqlite-utils 4.0rc2 Shaped by Claude Fable](#item-14) ⭐️ 6.0/10
+15. [AI Linked to Slumping Developer Course Sales](#item-15) ⭐️ 6.0/10
+16. [Let Claude Code Judge When to Delegate](#item-16) ⭐️ 6.0/10
+17. [Open-source neural network shape validator](#item-17) ⭐️ 6.0/10
 
 ---
 
 <a id="item-1"></a>
-## [CDD Recovers Fine-Tuning Data from Logits](https://www.reddit.com/r/MachineLearning/comments/1umn2dk/contrastive_decoding_diffing_cdd_recovering/) ⭐️ 9.0/10
+## [CDD Recovers Finetune Data from Logits Alone](https://www.reddit.com/r/MachineLearning/comments/1umn2dk/contrastive_decoding_diffing_cdd_recovering/) ⭐️ 9.0/10
 
-Researchers introduced Contrastive Decoding Diffing (CDD), a grey-box model diffing method that can recover verbatim content from narrowly fine-tuned LLMs using only base-vs-finetuned logits. In the reported benchmark results, CDD achieved a verbatim recovery score of 4+/5 on 19 of 20 organism-model pairs across four model families ranging from 1B to 32B parameters. This suggests that fine-tuning can leak much more than a broad domain description: even exact training text may be recoverable without weights, activations, or a probe corpus. That raises the stakes for model privacy, safety auditing, and IP protection, because logit-only access is common in deployed systems and is easier to obtain than full white-box access. CDD is described as the output-level analog of Activation Difference Lens (ADL), which the cited prior work used to detect finetuning traces through activation differences but required full weight access. The post also highlights an unplanned leakage pattern: the fictional scientist name "Dr. Elena Rodriguez" repeatedly appeared across unrelated synthetic finetunes, apparently because the same name was favored by Claude Sonnet 3.6 during synthetic data generation.
+The post introduces Contrastive Decoding Diffing (CDD), a grey-box model diffing method that can recover verbatim content from narrowly finetuned LLMs using only base and finetuned model logits. The authors report a default setup with no per-domain calibration, no layer selection, and no probe corpus that achieved 4+/5 verbatim recovery on 19 of 20 organism-model pairs across four model families, from 1B to 32B parameters. If the result holds up, it shows that sensitive finetuning data may be recoverable even without weight or activation access, raising the privacy and security bar for model release and evaluation. It also pushes model extraction and auditing research beyond white-box settings, where prior methods like ADL required full weight access. CDD is described as the output-level analogue of Activation Difference Lens (ADL): instead of using activation differences to steer generation, it contrasts the base and finetuned models' logits directly. The post says ADL on the same SDF benchmark did not exceed 3/5 despite full weight access, while CDD also surfaced an unexpected repeated persona name, "Dr. Elena Rodriguez," across unrelated synthetic-data finetunes.
 
 reddit · r/MachineLearning · /u/CebulkaZapiekana · Jul 3, 19:01
 
-**Background**: Contrastive decoding is a decoding strategy that compares two distributions and prefers tokens that are relatively more likely under one model than another. In this case, the comparison is between a base model and its fine-tuned counterpart, with the goal of surfacing what the fine-tuning changed. The earlier ADL result showed that narrow fine-tuning leaves readable traces in activations, and CDD pushes that idea to logits so it can work with less privileged access.
+**Background**: Fine-tuning adapts a base LLM to a narrower domain or task, and researchers sometimes study whether that process leaves detectable traces in model behavior. ADL, mentioned in the post, is a prior method that inspects activation differences between a base model and its finetuned version and uses those differences to steer generations toward the finetuning domain. Grey-box access usually means the attacker can query model outputs such as logits but cannot inspect internal weights or activations.
 
 <details><summary>References</summary>
 <ul>
-<li><a href="https://arxiv.org/abs/2309.09117">[2309.09117] Contrastive Decoding Improves Reasoning in Large Language Models</a></li>
-<li><a href="https://arxiv.org/html/2510.13900v2">Narrow Finetuning Leaves Clearly Readable Traces in Activation ...</a></li>
+<li><a href="https://arxiv.org/html/2510.13900v3">Narrow Finetuning Leaves Clearly Readable Traces in Activation Differences</a></li>
+<li><a href="https://openreview.net/forum?id=qyVzZsrsnS">Narrow Finetuning Leaves Clearly Readable Traces in Activation Differences | OpenReview</a></li>
+<li><a href="https://www.openai-hub.com/news/1005/">CDD黑盒攻击：仅凭logits就能还原LLM微调数据 - OpenAI Hub</a></li>
 
 </ul>
 </details>
 
-**Tags**: `#LLM security`, `#model auditing`, `#fine-tuning`, `#logit analysis`, `#machine learning research`
+**Tags**: `#LLM security`, `#model extraction`, `#finetuning`, `#logit analysis`, `#machine learning research`
 
 ---
 
 <a id="item-2"></a>
-## [EU Fast-Tracks Chat Control Scanning](https://www.heise.de/en/news/Chat-Control-1-0-EU-Council-forces-messenger-scans-via-fast-track-11353659.html) ⭐️ 8.0/10
+## [Organic Maps, governance debate, and CoMaps fork](https://organicmaps.app/) ⭐️ 8.0/10
 
-The EU Council is reportedly pushing the controversial “Chat Control” proposal through a fast-track process, advancing rules that would require message scanning on certain platforms. The move has renewed debate over whether the plan can proceed without weakening private communications or end-to-end encryption. If adopted, the proposal could affect messaging services used by billions of people in the EU and set a precedent for large-scale content scanning in private communication tools. Privacy advocates warn it could normalize mass surveillance, while supporters frame it as a child-safety measure. The proposal is commonly referred to as Chat Control and is tied to the EU’s Regulation to Prevent and Combat Child Sexual Abuse. The key technical concern is client-side scanning, where content is checked before or during sending, which critics argue can undermine the security and trust model of encrypted messaging.
+A Hacker News discussion about Organic Maps focused on the app's offline navigation strengths while surfacing renewed debate over its governance and licensing. Commenters also pointed to CoMaps, a fork created in 2025, as an alternative that is adding features such as CarPlay Dashboard support. Organic Maps is widely used by mobile navigation users who want offline maps, privacy-friendly behavior, and a battery-efficient app. The governance split matters because it affects trust, future development, and which project the open-source community will rally around. The discussion highlighted that Organic Maps works without an active internet connection and is designed for offline use after downloading maps. Several commenters raised concerns about proprietary drift, donation handling, and non-FLOSS map data, while others argued that CoMaps is the cleaner community-led fork.
 
-hackernews · stavros · Jul 5, 11:44 · [Discussion](https://news.ycombinator.com/item?id=48793393)
+hackernews · tosh · Jul 5, 14:14 · [Discussion](https://news.ycombinator.com/item?id=48794446)
 
-**Background**: Chat Control is the informal name for an EU proposal first put forward in 2022 by the European Commission to detect and report child sexual abuse material. The idea has repeatedly sparked controversy because scanning private messages can conflict with end-to-end encryption, which is designed so only the sender and recipient can read the content. The Council’s position matters because it can determine whether the proposal advances further in the EU law-making process.
+**Background**: Organic Maps is a mobile navigation app built around offline map downloads, which makes it useful for travel, hiking, cycling, and other situations where connectivity is limited. In open-source projects, governance refers to who controls the roadmap and decision-making, and conflicts over that control can lead to forks, where the codebase splits into separate projects. CoMaps is one such fork that emerged after reported disagreements over Organic Maps' governance.
 
 <details><summary>References</summary>
 <ul>
-<li><a href="https://www.eff.org/deeplinks/2025/09/chat-control-back-menu-eu-it-still-must-be-stopped-0">Chat Control Is Back on the Menu in the EU . It Still Must Be Stopped</a></li>
-<li><a href="https://www.theverge.com/2024/6/19/24181214/eu-chat-control-law-propose-scanning-encrypted-messages-csam">EU chat control law proposes scanning your messages... | The Verge</a></li>
+<li><a href="https://organicmaps.app/">Organic Maps: Offline Hike, Bike, Trails and Navigation</a></li>
+<li><a href="https://www.comaps.app/news/2025-05-12/3/">A community-led fork of Organic Maps | CoMaps</a></li>
+<li><a href="https://lwn.net/Articles/1024387/">CoMaps emerges as an Organic Maps fork - lwn.net</a></li>
+<li><a href="https://itsfoss.com/news/organic-maps-fork-comaps/">Organic Maps Forked Over Governance Concerns: CoMaps is Born</a></li>
+
+</ul>
+</details>
+
+**Discussion**: The comment thread was sharply divided. Supporters praised Organic Maps for practical offline navigation and user-editable map corrections, while critics urged people to switch to CoMaps over alleged governance problems and proprietary drift; a few others focused on missing features like a web client or discussed efforts to build one.
+
+**Tags**: `#open-source`, `#mapping`, `#mobile apps`, `#foss`, `#community discussion`
+
+---
+
+<a id="item-3"></a>
+## [EU Fast-Tracks Chat Control 1.0](https://www.heise.de/en/news/Chat-Control-1-0-EU-Council-forces-messenger-scans-via-fast-track-11353659.html) ⭐️ 8.0/10
+
+The EU Council is fast-tracking Chat Control 1.0, a proposal under the Child Sexual Abuse Regulation that would require messaging providers to scan chats for harmful content. According to the reporting and search results, the move revives a temporary scanning framework that had previously been allowed on a limited basis. This is significant because it expands the EU debate over message scanning from a temporary exception into a more durable policy direction, affecting major messaging and email providers. It raises fresh concerns about privacy, surveillance, and the long-term pressure such rules could place on encrypted communication services. The comments and search results distinguish Chat Control 1.0 from the more controversial Chat Control 2.0: the former focuses on provider-side scanning and does not necessarily require weakening end-to-end encryption, while the latter would be far more invasive. The proposal is still controversial because scanning private messages can still require client-side scanning or other forms of content inspection, which critics view as a serious trust and security risk.
+
+hackernews · stavros · Jul 5, 11:44 · [Discussion](https://news.ycombinator.com/item?id=48793393)
+
+**Background**: Chat Control is the informal name critics use for the EU’s Child Sexual Abuse Regulation debate. The core idea is to require services to detect and report abusive material, but the technical path matters a lot because scanning can be done on servers, on devices before encryption, or by other methods with very different privacy consequences. End-to-end encryption is designed so only the sender and recipient can read a message, which is why any mandatory scanning proposal is so contentious.
+
+<details><summary>References</summary>
+<ul>
+<li><a href="https://euobserver.com/*/are6859d63">EU ministers agree ‘ chat control ’ text to protect kids online</a></li>
+<li><a href="https://diplomacy.pl/en/chat-control-hits-the-wall-whats-next/">Chat Control hits the wall - what’s next? | The Polish Forum of Young...</a></li>
+<li><a href="https://www.internetsociety.org/resources/doc/2023/client-side-scanning/">Client - Side Scanning - Internet Society</a></li>
 <li><a href="https://en.wikipedia.org/wiki/Chat_Control">Chat Control - Wikipedia</a></li>
 
 </ul>
 </details>
 
-**Discussion**: Commenters were broadly alarmed, with several framing the move as another step toward mass surveillance and criticizing EU institutions for making questionable decisions. Others focused on practical and legal uncertainty, asking which services would be covered and noting that the reporting around the proposal still leaves important nuances unresolved.
+**Discussion**: Commenters were split between alarm and nuance. Some saw the move as another troubling surveillance decision by EU institutions, while others clarified that this is Chat Control 1.0 rather than the more extreme 2.0 proposal and argued the distinction matters for how severe the impact would be.
 
-**Tags**: `#EU policy`, `#privacy`, `#mass surveillance`, `#messaging platforms`, `#cybersecurity`
-
----
-
-<a id="item-3"></a>
-## [Competence Gate for Local Qwen Tool Use](https://www.reddit.com/r/MachineLearning/comments/1unw5un/competence_gate_gating_tooluse_on_a_small_models/) ⭐️ 8.0/10
-
-The author released an open-weight "Competence Gate" system for Qwen3.5-4B that uses a 10MB LoRA adapter plus a small orchestration layer to decide, per query, whether to answer directly, search the web, or retrieve local documents. The system is designed to read internal confidence signals instead of relying on the model's verbalized confidence, and it runs locally on Apple Silicon/MLX with a GGUF build for llama.cpp/Ollama. This matters because it targets a common failure mode in small LLMs: they often sound confident even when they are wrong, which makes tool-routing and trust decisions unreliable. By gating tool use on internal signals, the approach could improve hallucination avoidance, protect privacy by keeping sensitive questions local, and make local LLM assistants more dependable. The post reports a d′ improvement of 0.46 over the base model's tool calling, with 87% of the extra flagged cases being genuinely wrong answers. It also says a two-signal version reduced private questions routed to public search from 22% to 10%, while noting small-sample limits, coarse serve-time outputs, and that the gate controls when to trust the model rather than changing what it knows.
-
-reddit · r/MachineLearning · /u/Synthium- · Jul 5, 07:49
-
-**Background**: LoRA is a parameter-efficient fine-tuning method that adds a small adapter to a base model instead of retraining all weights, which makes it practical to ship compact task-specific behavior. Retrieval-augmented generation, or RAG, is a common pattern where the model looks up external documents before answering, and tool-use gating decides when to answer directly versus when to retrieve or search. The post argues that small instruct models often cannot reliably verbalize their own confidence, so the relevant signal must be read from internal activations instead.
-
-<details><summary>References</summary>
-<ul>
-<li><a href="https://aifeta.com/lora-on-the-go-training-free-on-the-fly-adapter-mixing-for-llms/">LoRA on the Go: Training-Free, On-the-Fly Adapter Mixing for LLMs</a></li>
-<li><a href="https://nm-vllm.readthedocs.io/en/latest/models/lora.html">Using LoRA adapters — vLLM</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Retrieval-augmented_generation">Retrieval-augmented generation - Wikipedia</a></li>
-
-</ul>
-</details>
-
-**Tags**: `#LLM agents`, `#confidence estimation`, `#tool use gating`, `#local AI`, `#LoRA`
+**Tags**: `#EU policy`, `#privacy`, `#encryption`, `#surveillance`, `#messaging platforms`
 
 ---
 
 <a id="item-4"></a>
-## [shadcn/ui switches default foundation to Base UI](https://ui.shadcn.com/docs/changelog) ⭐️ 7.0/10
+## [Competence Gate for Qwen3.5-4B](https://www.reddit.com/r/MachineLearning/comments/1unw5un/competence_gate_gating_tooluse_on_a_small_models/) ⭐️ 8.0/10
 
-shadcn/ui has changed its default component foundation from Radix UI to Base UI in its changelog announcement. This means new shadcn/ui component workflows will now be based on Base UI unless developers choose otherwise. shadcn/ui is widely used as a copy-paste-friendly layer for building React interfaces, so a foundation change affects many frontend teams’ default setup and migration choices. It also reflects a broader shift in how component libraries balance accessibility, composability, and developer experience. The news is specifically about the default base used by shadcn/ui, not a full rewrite of the project. Community reactions also suggest interest in how future migrations may be handled, especially whether tooling will lean more on LLMs instead of traditional codemods.
+A developer released a 10MB LoRA adapter called “Competence Gate” for Qwen3.5-4B that uses internal activations to decide whether the model should answer directly, search the web, or retrieve local documents. The release includes weights, code, and a model card under Apache-2.0, and it is designed to refuse unverifiable answers instead of guessing. This is a practical example of using a small model’s internal confidence signal to control tool use, which could reduce hallucinations and improve routing in local AI assistants. It may also help privacy-sensitive workflows by keeping personal queries on-device instead of sending them to public search. The author reports that the gate improves error detection over the base model’s tool calling, with a d′ gain of 0.46 and 87% of newly flagged cases being genuinely wrong. They also report that a two-signal version reduced private questions sent to public search from 22% to 10%, but note the evaluation sizes are small and that the GGUF build is slightly more conservative than the MLX version.
 
-hackernews · dabinat · Jul 5, 04:46 · [Discussion](https://news.ycombinator.com/item?id=48791328)
+reddit · r/MachineLearning · /u/Synthium- · Jul 5, 07:49
 
-**Background**: shadcn/ui is a popular design-system approach where components are brought into a project and customized locally rather than consumed as a black-box library. Radix UI is a well-known headless component foundation focused on accessibility and primitive behavior, while Base UI is another foundation in the same category. A change in foundation matters because it can affect component APIs, migration effort, and how much logic is exposed to the developer.
+**Background**: LoRA is a lightweight way to adapt a language model without retraining all of its parameters, which makes small add-ons practical to distribute and run locally. Confidence estimation is the problem of deciding whether a model knows enough to answer, and signal-detection metrics like d′ are often used to measure how well a system separates correct from incorrect cases. MLX, GGUF, llama.cpp, and Ollama are local inference stacks mentioned here because the project is aimed at running on-device rather than in a hosted API.
 
 <details><summary>References</summary>
 <ul>
-<li><a href="https://ui.shadcn.com/docs">Introduction - shadcn/ui</a></li>
+<li><a href="https://research.ibm.com/blog/inference-friendly-aloras-lora">A new LoRA technology for efficient agentic applications - IBM Research</a></li>
+<li><a href="https://qwen-ai.com/run-locally/">Run Qwen Locally — Ollama , llama . cpp , LM Studio & MLX</a></li>
 
 </ul>
 </details>
 
-**Discussion**: The discussion was mixed but engaged: several commenters criticized the release note’s writing style and felt it sounded AI-generated or overly scripted. Others focused on the technical and workflow implications, especially whether shadcn-style copy-paste components create new maintenance problems and whether LLM-based migration assistance could replace codemods.
-
-**Tags**: `#frontend`, `#ui-libraries`, `#shadcn/ui`, `#radix-ui`, `#base-ui`
+**Tags**: `#LLM`, `#tool-use`, `#confidence estimation`, `#open weights`, `#local AI`
 
 ---
 
 <a id="item-5"></a>
-## [sqlite-utils 4.0rc2 heads toward stable release](https://simonwillison.net/2026/Jul/5/sqlite-utils-fable/#atom-everything) ⭐️ 7.0/10
+## [USAF brings MoE fine-tuning to consumer GPUs](https://www.reddit.com/r/MachineLearning/comments/1unl62q/if_your_gpu_can_run_inference_it_should_be_able/) ⭐️ 8.0/10
 
-Simon Willison says he used Claude Fable to perform a final pre-release review of sqlite-utils 4.0 and prepared 4.0rc2 for a stable release. The review surfaced several serious issues, including five release blockers, before shipping. This shows how an AI coding assistant can help catch high-impact bugs during release engineering, especially when major-version compatibility matters. For Python and SQLite tooling users, it reduces the risk of shipping regressions in a SemVer-sensitive project. One reported blocker was a `delete_where()` bug that failed to commit and left the connection in a poisoned transaction state, which could cause later operations to be lost on close. Willison said the review involved 37 prompts, 34 commits, and changes across 30 files, with a total cost of about $149.25.
+A Reddit post introduces USAF, an open-source sparse fine-tuning method for mixture-of-experts (MoE) models. The author says it can fine-tune Qwen3-30B-A3B on an AMD RX 6750 XT with 12 GB of VRAM by training sparse expert weights and the router instead of adapters. If the claim holds up, USAF could make fine-tuning much more accessible on consumer hardware, especially for large MoE models that are usually considered inference-friendly but training-heavy. That would matter to researchers and hobbyists who want to adapt frontier-scale models without needing expensive multi-GPU setups. The method is explicitly designed for MoE architectures, where only a subset of experts is active per token, which can reduce the amount of work needed during inference. The post does not provide benchmark data or broad validation yet, so the practical limits and stability of training remain to be confirmed.
 
-rss · Simon Willison · Jul 5, 01:00
+reddit · r/MachineLearning · /u/tsuyu122 · Jul 4, 21:56
 
-**Background**: sqlite-utils is a Python library and command-line tool for working with SQLite databases. Willison says he tries to follow SemVer, so he treats incompatible major releases carefully and wanted confidence before finalizing 4.0.
+**Background**: Mixture-of-experts models split a network into multiple expert submodules and use a router or gating function to choose which experts process each token. This design can keep inference efficient because only some experts are active at a time, even when the total parameter count is very large. Qwen3-30B-A3B is an MoE model with a large total parameter count but only a smaller set of activated parameters per token, which is why it is relevant to this kind of sparse training approach.
 
 <details><summary>References</summary>
 <ul>
-<li><a href="https://www.anthropic.com/claude/fable">Claude Fable \ Anthropic</a></li>
-<li><a href="https://sqlite-utils.datasette.io/">sqlite - utils</a></li>
-<li><a href="https://simonwillison.net/2025/nov/24/sqlite-utils-40a1/">sqlite - utils 4.0a1 has several (minor) backwards incompatible changes</a></li>
+<li><a href="https://discuss.huggingface.co/t/if-your-gpu-can-run-inference-it-is-now-also-capable-of-performing-fine-tuning/177456">If your GPU can run inference, it is now also capable of performing fine-tuning - Research - Hugging Face Forums</a></li>
+<li><a href="https://huggingface.co/blog/moe">Mixture of Experts Explained</a></li>
+<li><a href="https://www.siliconflow.com/models/qwen3-30b-a3b">Qwen 3 - 30 B - A 3 B - Model Info, Parameters, Benchmarks - SiliconFlow"</a></li>
 
 </ul>
 </details>
 
-**Tags**: `#sqlite-utils`, `#Python`, `#AI-assisted development`, `#release engineering`, `#SemVer`
+**Tags**: `#machine-learning`, `#mixture-of-experts`, `#fine-tuning`, `#open-source`, `#LLM`
 
 ---
 
 <a id="item-6"></a>
-## [New Claude Models Weaker at Pi Tool Calls](https://simonwillison.net/2026/Jul/4/better-models-worse-tools/#atom-everything) ⭐️ 7.0/10
+## [shadcn/ui switches default foundation to Base UI](https://ui.shadcn.com/docs/changelog) ⭐️ 7.0/10
 
-Armin Ronacher reported that newer Anthropic Claude models, including Opus 4.8 and Sonnet 5, sometimes generate malformed arguments for Pi’s edit tool. The model’s proposed edit is often correct, but the nested edits[] payload includes invented fields, so Pi rejects the call and asks for a retry. This is a notable regression for LLM reliability: newer frontier models can be worse than older siblings on a specific structured tool schema. For agent and coding-tool developers, it highlights that model capability alone is not enough; tool design and schema compatibility still strongly affect real-world success. Armin suspects newer Claude models were optimized to use the edit tools built into Claude Code, possibly through reinforcement learning, which may make them less reliable with third-party edit APIs like Pi’s. The post also contrasts Claude’s search-and-replace style edit tool with OpenAI Codex’s apply_patch approach, suggesting that tool format and training strategy are tightly coupled.
+shadcn/ui has updated its default underlying component system from Radix to Base UI. The changelog indicates a migration path is available, and the change is significant enough to trigger discussion about how existing shadcn/ui projects should adapt. shadcn/ui is widely used in frontend projects, so changing its default foundation can affect a large number of developers and codebases. It also reflects a broader shift in UI tooling toward more flexible component primitives and easier migration tooling. Base UI says its APIs are intentionally kept close to Radix UI to make migration easier, and it offers some more complex components such as Combobox and Autocomplete. The change is not a full framework rewrite, but a foundation swap that may still require updating assumptions in existing component implementations.
 
-rss · Simon Willison · Jul 4, 22:53
+hackernews · dabinat · Jul 5, 04:46 · [Discussion](https://news.ycombinator.com/item?id=48791328)
 
-**Background**: Tool calling is the mechanism by which an LLM produces structured arguments for external functions or APIs, usually under a JSON schema. If the arguments do not exactly match the schema, the tool call can fail even when the model’s intent is correct. Coding agents depend heavily on this loop because they need models to edit files, patch code, and invoke actions reliably.
+**Background**: shadcn/ui is a popular copy-paste component approach for React apps, where developers add source code for UI primitives into their own projects rather than relying only on a compiled package. Radix UI and Base UI are both unstyled, accessibility-focused component systems that provide low-level building blocks for custom design systems. Because shadcn/ui sits on top of such primitives, changing the default base library can influence both developer experience and the shape of future components.
 
 <details><summary>References</summary>
 <ul>
-<li><a href="https://lucumr.pocoo.org/2026/7/4/better-models-worse-tools/">Better Models: Worse Tools | Armin Ronacher's Thoughts and Writings</a></li>
-<li><a href="https://www.anthropic.com/engineering/advanced-tool-use">Introducing advanced tool use on the Claude Developer Platform</a></li>
+<li><a href="https://base-ui.com/">Unstyled UI components for accessible design systems · Base UI</a></li>
+<li><a href="https://www.skills.sh/shadcn/ui/migrate-radix-to-base">migrate - radix - to - base — shadcn / ui</a></li>
+<li><a href="https://github.com/shadcn-ui/ui/discussions/6248">migrate Radix to new Base UI · shadcn - ui ui · Discussion #6248</a></li>
 
 </ul>
 </details>
 
-**Tags**: `#LLM reliability`, `#tool calling`, `#Anthropic Claude`, `#agent systems`, `#software engineering`
+**Discussion**: The discussion is broadly engaged but mixed: some commenters are uneasy that the announcement sounds too AI-assisted, while others focus on the practical upside of migration tooling. Several people debate whether shadcn's copy-paste model creates new maintenance problems compared with traditional libraries, and one commenter asks for an Angular equivalent after PrimeNG's licensing change.
+
+**Tags**: `#frontend`, `#shadcn-ui`, `#Base UI`, `#Radix`, `#UI libraries`
 
 ---
 
 <a id="item-7"></a>
-## [Current AI Launches Open Source AI Gap Map](https://simonwillison.net/2026/Jul/3/open-source-ai-gap-map/#atom-everything) ⭐️ 7.0/10
+## [New Claude Models Break Tool Schemas](https://simonwillison.net/2026/Jul/4/better-models-worse-tools/#atom-everything) ⭐️ 7.0/10
 
-Current AI has launched the Open Source AI Gap Map, a visual index of the open-source AI stack. Version 0.1 covers 421 products in depth, including 266 software tools and libraries, 85 models, 50 datasets, and 20 hardware projects. The map gives practitioners, researchers, and funders a structured view of where the open-source AI ecosystem is strong and where it still has gaps. That can help guide contribution priorities, investment, and infrastructure work across the stack. Current AI says the map is organized into 14 categories across three layers of the stack: model components, product/UX, and infrastructure. The underlying dataset is also open source under an MIT license, with 1,184 YAML files and related notebooks, schemas, and scripts published in the currentai-org/os-ai-map GitHub repository.
+Simon Willison highlighted Armin Ronacher’s report that newer Claude models, including Opus 4.8 and Sonnet 5, sometimes produce edit tool calls with extra invented fields inside nested `edits[]` arguments. The calls are usually semantically correct, but Pi rejects them because the arguments do not match the expected schema. This is a practical regression for people building LLM-powered coding tools: a newer, more capable model can be worse at obeying a strict tool schema than older models. That can increase tool-call failures, retries, and integration friction for third-party harnesses that depend on reliable structured arguments. Ronacher’s theory is that newer Anthropic models may have been optimized to use Claude Code’s built-in edit tools more effectively, which could make them less reliable with custom edit tools like Pi’s. The article also notes that Claude’s native edit tool is based on search-and-replace, while OpenAI’s Codex uses an `apply_patch` style mechanism, underscoring that tool formats vary across ecosystems.
 
-rss · Simon Willison · Jul 3, 22:04
+rss · Simon Willison · Jul 4, 22:53
 
-**Background**: Open-source AI refers to models, tools, datasets, and infrastructure that are publicly available for others to inspect, modify, and build on. In a fast-moving ecosystem, it can be hard to know which parts of the stack are well served and which areas lack solid open alternatives. A gap map is a way to catalog that landscape so people can identify missing pieces and prioritize work.
+**Background**: Tool calling is the mechanism where an LLM returns structured arguments for an external function instead of only generating text. In coding agents, those arguments often need to match a schema exactly, because the harness uses them to edit files or trigger actions automatically. If the model invents fields or changes the shape of nested data, the host application may reject the call even when the intent is correct.
 
 <details><summary>References</summary>
 <ul>
-<li><a href="https://map.currentai.org/">Current AI – Open Source AI Gap Map</a></li>
-<li><a href="https://www.currentai.org/blogs/introducing-the-gap-map-v0-1">Introducing the Gap Map v0.1</a></li>
+<li><a href="https://simonwillison.net/2026/Jul/4/better-models-worse-tools/">Better Models: Worse Tools | Simon Willison’s Weblog</a></li>
+<li><a href="https://docs.anthropic.com/en/docs/agents-and-tools/tool-use/overview">Tool use with Claude - Anthropic</a></li>
+<li><a href="https://www.aiwisdom.dev/articles/prompt-engineering/structured-outputs-from-llms">Structured Outputs from LLMs: JSON Mode, Function Calling , and...</a></li>
+
+</ul>
+</details>
+
+**Tags**: `#LLMs`, `#tool calling`, `#Anthropic Claude`, `#model regressions`, `#AI engineering`
+
+---
+
+<a id="item-8"></a>
+## [Open Source AI Gap Map Launches](https://simonwillison.net/2026/Jul/3/open-source-ai-gap-map/#atom-everything) ⭐️ 7.0/10
+
+Current AI has launched the Open Source AI Gap Map v0.1, an index of the open-source AI ecosystem. The first release maps 421 products in depth, including 266 software tools and libraries, 85 models, 50 datasets, and 20 hardware projects from 228 organizations. The map gives researchers, builders, and funders a more structured view of a fragmented open-source AI landscape. Because it tracks tools, models, datasets, and hardware together, it can help identify underserved areas and avoid duplicated effort. Current AI says the remaining 24,400 artifacts in its broader crawl are still uncategorized and will not receive scores until they are researched and cited. The underlying dataset was released under an MIT license in a GitHub repository, along with YAML files, notebooks, schemas, and scripts used to build the map.
+
+rss · Simon Willison · Jul 3, 22:04
+
+**Background**: Open-source AI refers to AI software, models, datasets, and related infrastructure that are available for others to inspect, reuse, and build upon. Because the ecosystem is large and fast-moving, indexing efforts like this try to make sense of what exists across different layers of the stack. Current AI describes itself as a nonprofit building a public option for AI, and its Gap Map is meant to catalog that space rather than present a new model or benchmark.
+
+<details><summary>References</summary>
+<ul>
 <li><a href="https://simonwillison.net/2026/jul/3/open-source-ai-gap-map/">Open Source AI Gap Map | Simon Willison’s Weblog</a></li>
 
 </ul>
 </details>
 
-**Tags**: `#open-source AI`, `#AI ecosystem`, `#benchmarking`, `#datasets`, `#models`
-
----
-
-<a id="item-8"></a>
-## [Proactive Context Curator Postmortem](https://www.reddit.com/r/MachineLearning/comments/1uo5r0b/why_i_built_a_proactive_context_curator_instead/) ⭐️ 7.0/10
-
-A developer shared a three-month postmortem on building PRAANA, a proactive context curator for coding agents instead of a reactive context compactor. The post explains what worked, what failed, and how a flawed placeholder embedder quietly hurt retrieval quality until it was replaced with Transformers.js-based semantic similarity and keyword-only fallback. This is relevant to anyone building LLM agents because context management strongly affects accuracy, latency, and how often agents repeat mistakes. The post highlights a practical shift in agent memory design: curating information before it enters the window can be more effective than cleaning up after the window is already full. PRAANA splits working memory into active, soft, and hard tiers, then scores context units by information density before using BM25 plus in-process semantic similarity to decide what returns to the active window. The author also notes that a fake hash-based embedder introduced noisy rankings, and that the project currently has telemetry but still needs an A/B evaluation harness and a complete reinforcement trigger for memory confidence updates.
-
-reddit · r/MachineLearning · /u/Reasonable_Craft_425 · Jul 5, 15:57
-
-**Background**: Large language model agents operate within a limited context window, so they must decide what to keep, summarize, retrieve, or discard as a session grows. BM25 is a classic information retrieval ranking method used to score how well a document matches a query, while semantic similarity embeddings try to capture meaning beyond exact keyword overlap. In this post, the coding agent is just the testbed for a broader memory runtime that the author wants to reuse for other domain agents later.
-
-<details><summary>References</summary>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Okapi_BM25">Okapi BM25 - Wikipedia</a></li>
-<li><a href="https://machinelearningmastery.com/building-semantic-search-with-transformers-js-and-sentence-embeddings/">Building Semantic Search with Transformers . js and Sentence...</a></li>
-<li><a href="https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2">sentence- transformers /all-MiniLM-L6-v2 · Hugging Face</a></li>
-
-</ul>
-</details>
-
-**Tags**: `#LLM agents`, `#context management`, `#retrieval`, `#memory systems`, `#coding agents`
+**Tags**: `#open-source AI`, `#AI ecosystem`, `#tools and libraries`, `#models`, `#datasets`
 
 ---
 
 <a id="item-9"></a>
-## [USAF Lets MoE Fine-Tuning Run on Inference-Ready GPUs](https://www.reddit.com/r/MachineLearning/comments/1unl62q/if_your_gpu_can_run_inference_it_should_be_able/) ⭐️ 7.0/10
+## [Proactive Context Curator for Coding Agents](https://www.reddit.com/r/MachineLearning/comments/1uo5r0b/why_i_built_a_proactive_context_curator_instead/) ⭐️ 7.0/10
 
-A Reddit post introduces USAF, an open-source sparse fine-tuning method for Mixture-of-Experts (MoE) models. The author says it can fine-tune Qwen3-30B-A3B on an AMD RX 6750 XT with 12 GB of VRAM by training sparse expert weights and the router instead of adapters. If the approach works broadly, it could make MoE fine-tuning accessible on consumer GPUs that can already run inference, lowering the hardware barrier for researchers and hobbyists. That would be significant for a model family designed to be efficient at inference but historically difficult and expensive to fine-tune. The project is released under the Apache 2.0 license and is fully open source on GitHub. The post frames USAF as targeting hardware that can barely load the model for inference, which suggests the method is aimed at very tight VRAM budgets rather than conventional training setups.
+The author describes PRAANA, a proactive context-curation system built for coding agents instead of a traditional reactive compactor. The post says the system uses tiered working memory, BM25, and in-process semantic similarity via Transformers.js, and it also documents a months-long mistake where a placeholder hash-based embedder quietly hurt recall quality. This matters because context-window management is a core bottleneck for LLM agents, especially coding assistants that accumulate lots of transient tool output and decisions over long sessions. The post argues that better retrieval and curation can reduce context rot, improve trust, and make agent behavior more measurable and reliable. PRAANA separates memory into active, soft, and hard tiers, then scores context units by information density before deciding what to promote back into the active window. The author also notes a measurement gap: a telemetry scorecard was added only later, and the evaluation harness for A/B testing is still next, while memory reinforcement is not fully shipped yet.
 
-reddit · r/MachineLearning · /u/tsuyu122 · Jul 4, 21:56
+reddit · r/MachineLearning · /u/Reasonable_Craft_425 · Jul 5, 15:57
 
-**Background**: Mixture-of-Experts models route each token or request through only a subset of experts, which can make them cheaper to run than dense models of similar size. Fine-tuning usually requires much more memory than inference because training must store gradients and optimizer states, so methods that only touch a small part of the model are especially important. The web results also note that MoE-specific fine-tuning approaches are an active research area, including router-focused methods.
+**Background**: In LLM agents, the context window is the limited amount of text the model can consider at once. Systems usually either reactively compact old history when the window fills up or proactively curate what gets added so irrelevant material does not accumulate.
+
+BM25 is a classic lexical information-retrieval ranking method that scores documents based on term matching, while semantic similarity uses embeddings to match by meaning rather than exact words. Transformers.js is a JavaScript library that can run transformer-based models in-process, which makes it possible to generate embeddings locally without a separate service.
 
 <details><summary>References</summary>
 <ul>
-<li><a href="https://github.com/tsuyu122/usaf">GitHub - tsuyu122/ usaf : Making MoE fine - tuning accessible to anyone...</a></li>
-<li><a href="https://huggingface.co/blog/moe">Mixture of Experts Explained</a></li>
-<li><a href="https://arxiv.org/html/2503.23362v2">Mixture of Routers</a></li>
+<li><a href="https://blog.solega.co/building-semantic-search-with-transformers-js-and-sentence-embeddings/">Building Semantic Search with Transformers . js and... - Solega Blog</a></li>
+<li><a href="https://www.fi.muni.cz/~sojka/PV211/p11prob.pdf">PV211: 11, Probabilistic Information Retrieval</a></li>
 
 </ul>
 </details>
 
-**Tags**: `#machine-learning`, `#mixture-of-experts`, `#fine-tuning`, `#open-source`, `#llm`
+**Tags**: `#LLM agents`, `#context management`, `#information retrieval`, `#coding assistants`, `#semantic search`
 
 ---
 
 <a id="item-10"></a>
-## [Organic Maps Debate Spurs Forks and Alternatives](https://organicmaps.app/) ⭐️ 6.0/10
+## [H64LM: A From-Scratch 249M-Parameter MoE Transformer](https://www.reddit.com/r/MachineLearning/comments/1umqfd2/h64lm_a_249mparameter_mixtureofexperts/) ⭐️ 7.0/10
 
-A Hacker News discussion centered on Organic Maps, a free open-source offline navigation app, with commenters highlighting its offline routing, privacy focus, and user-editable maps. The thread also surfaced governance concerns and pointed to forks and alternatives such as CoMaps and TilelessMap. Organic Maps sits in the growing niche of privacy-focused, offline-first navigation tools that do not depend on cloud connectivity. The governance concerns and emergence of forks like CoMaps matter because they can shape contributor trust, project direction, and the long-term health of open-source navigation apps. The official project describes Organic Maps as a fast, privacy-focused offline maps app for travelers, drivers, hikers, and cyclists, while its GitHub listing emphasizes that it is tracker-free and an alternative to Google Maps, Apple Maps, and MAPS.ME. Community comments also noted that some package metadata questions the app's “open source” status because it includes non-FLOSS binary map data files, which confused some users.
-
-hackernews · tosh · Jul 5, 14:14 · [Discussion](https://news.ycombinator.com/item?id=48794446)
-
-**Background**: Organic Maps is built around offline map use, meaning users download map data in advance and can still navigate without internet access. It is based on OpenStreetMap data and is designed for mobile use, where speed, battery life, and privacy are important. Forks like CoMaps typically appear when contributors want a different governance model or product direction, while projects like TilelessMap explore related offline-first mapping ideas.
-
-<details><summary>References</summary>
-<ul>
-<li><a href="https://organicmaps.app/">Organic Maps : Offline Hike, Bike, Trails and Navigation</a></li>
-<li><a href="https://github.com/organicmaps/organicmaps">GitHub - organicmaps/organicmaps: Organic Maps is a free...</a></li>
-<li><a href="https://www.comaps.app/media-coverage/2025-05-29/ITs-FOSS-NEWS--Organic-Maps-Forked-Over-Governance-Concerns-CoMaps-is-Born/">IT'S FOSS NEWS: Organic Maps Forked Over... | CoMaps</a></li>
-
-</ul>
-</details>
-
-**Discussion**: Commenters were generally positive about Organic Maps as a practical offline navigation app, especially for users who want to fix map errors themselves instead of relying on proprietary platforms. At the same time, multiple commenters flagged governance and transparency concerns, and several mentioned CoMaps as a fork that is trying to move faster or operate with a different structure; TilelessMap was raised as another related project with similar offline goals.
-
-**Tags**: `#open-source`, `#offline-maps`, `#mobile-apps`, `#community-discussion`, `#navigation`
-
----
-
-<a id="item-11"></a>
-## [Practical Guide to Compilers and Language Design](https://dthain.github.io/books/compiler/) ⭐️ 6.0/10
-
-A new introductory resource, "Introduction to Compilers and Language Design," walks readers through building a compiler step by step. The page is being highlighted as a practical teaching resource rather than a software release or research breakthrough. Compiler and language design are foundational topics in systems programming and programming language implementation, so a clear hands-on guide can help learners move from theory to working code. For students and self-taught programmers, resources like this can make the pipeline from lexing to code generation much easier to understand. The discussion suggests the material follows a step-by-step project approach similar to a compiler construction course project, with readers building a working C-style compiler along the way. One commenter notes that the resource stays close to C and its quirks, and another wishes for more coverage of optimization passes and code-generation trade-offs.
-
-hackernews · AlexeyBrin · Jul 5, 11:54 · [Discussion](https://news.ycombinator.com/item?id=48793454)
-
-**Background**: Compilers translate source code written in a programming language into a form a machine can execute, often by passing through stages such as lexing, parsing, semantic analysis, optimization, and code generation. Language design covers the choices that shape how a language looks and behaves, including syntax, features, and how those features are implemented by a compiler. Introductory resources on these topics often teach by building a simple compiler from the ground up so readers can see each stage in context.
-
-<details><summary>References</summary>
-<ul>
-<li><a href="https://riptutorial.com/compiler-construction">compiler - construction Tutorial => Getting started with...</a></li>
-<li><a href="https://www.ida.liu.se/~TDDB44/lessons/lessons2020/TDDB44Seminar1.pdf">COMPILER CONSTRUCTION</a></li>
-<li><a href="https://blog.hashhackers.com/blog/compilers-guide/">How Compilers Work: Lexing , Parsing , and Code Generation</a></li>
-
-</ul>
-</details>
-
-**Discussion**: The comments are broadly positive and appreciative, with several readers praising the practical teaching style and the instructor’s clarity. A few commenters also ask for deeper treatment of advanced topics such as optimization and code generation, while one notes the material’s strong focus on C.
-
-**Tags**: `#compilers`, `#language design`, `#systems programming`, `#education`, `#programming languages`
-
----
-
-<a id="item-12"></a>
-## [The Button Should Do One Clear Thing](https://unsung.aresluna.org/if-youre-a-button-you-have-one-job/) ⭐️ 6.0/10
-
-A Hacker News discussion revisits the design rule that a button should have one clear job, with commenters debating whether that principle breaks down once you account for animation, double-clicks, and debouncing. The thread frames button behavior as both a UI/UX issue and a practical engineering problem. Button behavior affects basic user trust: if clicks are ignored, duplicated, or ambiguous, users may think the app is broken. The discussion is relevant to frontend teams because it touches interaction design decisions that can reduce accidental repeats while still keeping interfaces responsive. The community debate specifically mentions debouncing, which is a technique that limits how often a function can fire when events happen in quick succession. Comments also raise the real-world problem of users double-clicking because they think the first click did not register, and of interfaces needing visible feedback so a button feels reliable.
-
-hackernews · nozzlegear · Jul 5, 02:01 · [Discussion](https://news.ycombinator.com/item?id=48790689)
-
-**Background**: In UI design, a button is usually expected to communicate an action, respond to input, and often show that the action is in progress or completed. Problems arise when a single click can trigger multiple requests, or when an app suppresses repeated clicks without telling the user what happened. Debouncing is commonly used in web development to prevent rapid repeated events from causing duplicate work.
-
-<details><summary>References</summary>
-<ul>
-<li><a href="https://medium.com/@ashishnimrot/mastering-debounce-in-react-for-optimized-user-interactions-95643f7ee005">Mastering Debounce in React for Optimized User Interactions | Medium</a></li>
-<li><a href="https://openacs.org/xowiki/double-click-handling?m=view">xowiki - Double Click Handling</a></li>
-<li><a href="https://frankspillers.com/what-are-affordances-and-signifiers-in-ux/">What are Affordances and Signifiers in UX?</a></li>
-
-</ul>
-</details>
-
-**Discussion**: The comments are mixed but engaged: some readers argue that real interfaces often need debouncing or other safeguards, while others think the “you had one job” framing is too simplistic. Several commenters emphasize feedback and reliability, noting that users may click again if they do not see immediate confirmation.
-
-**Tags**: `#ui-ux`, `#frontend`, `#debouncing`, `#interaction-design`, `#hacker-news`
-
----
-
-<a id="item-13"></a>
-## [Phosh 0.56.0 Released](https://phosh.mobi/releases/rel-0.56.0/) ⭐️ 6.0/10
-
-Phosh 0.56.0 has been released as the latest version of the GNOME-based mobile shell for Linux phones and tablets. The announcement marks another incremental update for the project rather than a major redesign. Phosh remains one of the main user interfaces for the Linux mobile ecosystem, especially on devices running distributions like PureOS, Mobian, Fedora Phosh, and postmarketOS. Even routine releases matter because they affect everyday usability, device support, and whether Linux mobile feels practical on real hardware. Phosh is described as a phone shell built on the GNOME stack and originally initiated by Purism for the Librem 5. Community discussion around this release again highlights the tradeoff between reusing GNOME components for compatibility and the concern that they may add overhead on battery-constrained mobile devices.
-
-hackernews · edward · Jul 5, 13:28 · [Discussion](https://news.ycombinator.com/item?id=48794179)
-
-**Background**: Phosh is a graphical shell for mobile and touch-based Linux devices, and it aims to make desktop Linux technologies work well on phones and tablets. It is commonly used by Linux mobile distributions that want a usable touch interface without building a completely separate software stack. Because it is tied to the GNOME ecosystem, it often comes up in discussions about polish, app compatibility, and power usage.
-
-<details><summary>References</summary>
-<ul>
-<li><a href="https://wiki.postmarketos.org/wiki/Phosh">Phosh - postmarketOS Wiki</a></li>
-<li><a href="https://phosh.mobi/about/">About Phosh · Phosh</a></li>
-<li><a href="https://en.wikipedia.org/wiki/Phosh">Phosh - Wikipedia</a></li>
-
-</ul>
-</details>
-
-**Discussion**: The discussion is broadly positive about usability, with one commenter saying Phosh on a Surface Go 2 feels smooth and offers the best tablet experience for Linux. At the same time, others question whether Linux mobile can ever compete with mainstream mobile OSes because of gaps like app support, tap-to-pay, and camera quality, while one commenter worries that pulling in GNOME components could hurt battery life.
-
-**Tags**: `#Linux mobile`, `#Phosh`, `#GNOME`, `#open source`, `#mobile OS`
-
----
-
-<a id="item-14"></a>
-## [Josh W. Comeau on AI Hurting Course Sales](https://simonwillison.net/2026/Jul/3/josh-w-comeau/#atom-everything) ⭐️ 6.0/10
-
-Josh W. Comeau said his newly launched course, Whimsical Animations, is on track to sell about one-third as many copies as a typical launch. He also said sales for his two existing courses are down significantly from last year and attributed the decline largely to AI. The post highlights a possible side effect of generative AI on the developer education market: fewer people may be willing to pay for courses if they think jobs are uncertain or if LLMs can tutor them for free. If this trend is widespread, it could pressure independent course creators and reshape how developers learn new skills. Comeau described a "double whammy" from AI: people are more hesitant to invest in learning because they worry developer jobs may not last, and LLMs provide personalized tutoring that competes with paid instruction. He also said other course creators he has spoken with are seeing similar revenue declines, including drops of 50%+.
-
-rss · Simon Willison · Jul 3, 21:25
-
-**Background**: Developer courses are a major part of the creator economy, especially for teaching practical skills like frontend development and animations. LLMs are increasingly used as personalized tutors because they can answer questions, explain concepts step by step, and adapt to a learner's level. This story sits at the intersection of AI adoption, labor-market anxiety, and the economics of online education.
-
-<details><summary>References</summary>
-<ul>
-<li><a href="https://www.linkedin.com/pulse/future-education-llms-personalized-learning-gavin-o-leary-p90ve">The Future of Education : LLMs in Personalized Learning and...</a></li>
-<li><a href="https://arxiv.org/pdf/2504.04815">Beyond Answers: How LLMs Can Pursue</a></li>
-<li><a href="https://medium.com/age-of-awareness/ai-in-education-personalized-learning-with-llms-57405e34446a">AI in Education : Personalized Learning with LLMs | Medium</a></li>
-
-</ul>
-</details>
-
-**Tags**: `#AI impact`, `#developer education`, `#creator economy`, `#online courses`, `#LLMs`
-
----
-
-<a id="item-15"></a>
-## [Let Fable Use Its Own Judgment](https://simonwillison.net/2026/Jul/3/judgement/#atom-everything) ⭐️ 6.0/10
-
-Simon Willison says advice from the Claude Code team is to let Fable make its own decisions about things like when to run tests and which model to use, instead of hard-coding rigid rules. He says this approach is now being used in Claude Code memory notes to delegate coding work to lower-power subagents. This is a practical workflow tip for using AI coding assistants more efficiently: let the main model keep judgment-heavy work while cheaper models handle routine implementation. That can reduce cost and token usage without sacrificing oversight, which matters for teams trying to scale agentic coding tools. The example in the post is testing: rather than instructing Fable exactly when to run automated tests, Simon suggests telling it to use its own judgment. The memory note he shows recommends using Sonnet for substantive implementation, Haiku for trivial or mechanical edits, and keeping design, auditing, and data synthesis in the main model.
-
-rss · Simon Willison · Jul 3, 18:51
-
-**Background**: Claude Code is Anthropic’s coding assistant, and Fable appears here as one of its higher-end model options. The post is about prompt and workflow design for agentic coding systems, where a main model can delegate sub-tasks to lower-power models through subagents.
-
-<details><summary>References</summary>
-<ul>
-<li><a href="https://support.claude.com/en/articles/11940350-claude-code-model-configuration">Claude Code model configuration | Claude Help Center</a></li>
-<li><a href="https://apidog.com/blog/claude-fable-5-claude-code/">How to Use Claude Fable 5 with Claude Code</a></li>
-<li><a href="https://www.verdent.ai/guides/claude-code-fable-5">Claude Code Fable 5: What Builders Should Know - Verdent Guides</a></li>
-
-</ul>
-</details>
-
-**Tags**: `#AI assistants`, `#Claude Code`, `#workflow optimization`, `#LLM prompting`, `#developer tools`
-
----
-
-<a id="item-16"></a>
-## [Open-source neural network shape validator](https://www.reddit.com/r/MachineLearning/comments/1unvbdb/i_built_a_open_source_neural_network_shape/) ⭐️ 6.0/10
-
-A Reddit user announced Tensey, an open-source visual neural network editor that validates tensor shapes while you design a model. It also estimates parameters, FLOPs, and VRAM, and exports runnable PyTorch code. Shape errors are a common source of wasted time in deep learning, especially when residual connections or Linear layers do not line up. A tool that catches those issues early can help ML engineers iterate faster and avoid burning GPU time on broken models. The post says the editor supports 63 operations and performs proper shape inference, which is the static determination of tensor dimensions before running the graph. It is MIT licensed and available on the web at tensey.vercel.app, with source code on GitHub.
-
-reddit · r/MachineLearning · /u/uselessfuh · Jul 5, 06:58
-
-**Background**: In neural networks, tensors are the multi-dimensional arrays that flow between layers, and each operation expects specific input and output shapes. If those shapes do not match, the model may fail at build time or runtime. Shape inference helps verify dimensions ahead of execution, while FLOPs and VRAM estimates give a rough idea of compute and memory cost before training starts.
-
-<details><summary>References</summary>
-<ul>
-<li><a href="https://deepwiki.com/onnx/tensorflow-onnx/2.3-shape-inference-and-data-type-handling">Shape Inference and Data Type Handling | DeepWiki</a></li>
-<li><a href="https://github.com/JavaNoTea/BuildANeuralNet">GitHub - JavaNoTea/BuildANeuralNet: Visual neural network builder...</a></li>
-<li><a href="https://github.com/EleutherAI/cookbook">GitHub - EleutherAI/cookbook: Deep learning for dummies.</a></li>
-
-</ul>
-</details>
-
-**Tags**: `#machine-learning`, `#deep-learning`, `#developer-tools`, `#open-source`, `#pytorch`
-
----
-
-<a id="item-17"></a>
-## [H64LM: 249M-Parameter MoE Transformer in PyTorch](https://www.reddit.com/r/MachineLearning/comments/1umqfd2/h64lm_a_249mparameter_mixtureofexperts/) ⭐️ 6.0/10
-
-The author released H64LM, a from-scratch PyTorch research project that implements a 249M-parameter Transformer with modern LLM components such as Grouped Query Attention, RoPE, RMSNorm, SwiGLU, sliding-window attention, and sparse Mixture-of-Experts routing. The included checkpoint was trained on a subset of WikiText-103 to validate the full training pipeline, and the model reached a best validation perplexity of about 40.5 before clearly overfitting after epoch 10. This is useful as an end-to-end implementation reference for people learning how modern LLMs are built without relying on high-level training frameworks. It shows how architectural pieces like MoE routing and GQA fit into a custom PyTorch training stack, which is valuable for researchers and engineers who want to understand or extend these systems. The model uses 8 experts with Top-2 routing and three auxiliary routing losses, plus mixed-precision training, gradient accumulation, checkpoint resume support, and a custom training loop instead of a Trainer abstraction. The README also documents limitations such as batch-size-1-only generation and no true DDP support, with DataParallel used as a fallback.
+An engineer built H64LM, a 249M-parameter Mixture-of-Experts Transformer implemented from scratch in PyTorch. The project includes modern LLM components such as GQA, sparse MoE with 8 experts and top-2 routing, RoPE, RMSNorm, SwiGLU, sliding-window attention, and a custom training loop with checkpointing. This is a useful end-to-end implementation reference for people studying how modern LLMs are built and trained without relying on high-level frameworks. It is especially relevant for engineers who want to inspect architecture choices, routing behavior, and training pipeline details in a compact open project. The included checkpoint was trained only on a subset of WikiText-103 to validate the pipeline, and the author notes it is not a strong model; it overfits after about epoch 10 with a best validation perplexity around 40.5. Known limitations include batch-size-1-only generation and no true DDP support, since it falls back to DataParallel.
 
 reddit · r/MachineLearning · /u/Loose_Literature6090 · Jul 3, 21:18
 
-**Background**: Mixture-of-Experts layers route each token to only a small subset of experts, which can increase model capacity without activating every parameter for every token. Grouped Query Attention shares key/value heads across multiple query heads to reduce memory and inference cost, while RoPE, RMSNorm, and SwiGLU are common building blocks in modern Transformer designs. Sliding-window attention limits attention to a local context window, which can improve efficiency for long sequences.
+**Background**: Mixture-of-Experts models use a router to send each token to only a small number of expert networks, which can improve efficiency while keeping capacity high. Techniques like GQA, RoPE, RMSNorm, SwiGLU, and sliding-window attention are common building blocks in newer Transformer designs and are often combined to make large language models more efficient and stable. WikiText-103 is a text dataset often used for language modeling experiments and pipeline validation rather than for state-of-the-art benchmarking.
 
 <details><summary>References</summary>
 <ul>
-<li><a href="https://sesen.ai/blog/mixture-of-experts-llms-sparse-routing">Mixture of Experts in LLMs: From Switch to DeepSeek-V3</a></li>
+<li><a href="https://datalinkk.com/blog/mixture-of-experts-explained">Mixture of Experts (MoE) Explained: A Visual... | Datalinkk AI Blog</a></li>
 <li><a href="https://mbrenndoerfer.com/writing/mistral-architecture-sliding-window-attention">Mistral Architecture: Sliding Window Attention & Efficient LLM Design...</a></li>
 <li><a href="https://dev.to/zeromathai/how-modern-transformer-blocks-work-from-rmsnorm-to-moe-44cc">How Modern Transformer Blocks Work — From RMSNorm to MoE</a></li>
 
 </ul>
 </details>
 
-**Tags**: `#PyTorch`, `#Mixture-of-Experts`, `#Transformers`, `#LLM engineering`, `#language modeling`
+**Tags**: `#PyTorch`, `#Mixture-of-Experts`, `#Transformers`, `#LLM engineering`, `#machine learning`
 
 ---
 
-<a id="item-18"></a>
-## [Semantic Compression for Longer LLM Sessions](https://www.reddit.com/r/MachineLearning/comments/1un63hv/proposal_use_semantic_compression_as_input/) ⭐️ 6.0/10
+<a id="item-11"></a>
+## [Free Guide to Building a C-Style Compiler](https://dthain.github.io/books/compiler/) ⭐️ 6.0/10
 
-A Reddit proposal suggests reading over-length AI sessions in multiple passes, starting with a highly compressed outline and then progressively less compressed slices until the model reaches verbatim detail. The author describes it as a diffusion-inspired, coarse-to-fine workflow that uses compression as “noise” on the input side to fit each slice within the context window. If it works, this approach could help LLMs preserve structure and nuance across very long sessions without relying only on retrieval or destructive compaction. That would be useful for long-running assistants, document analysis, and any workflow where the whole conversation matters, not just isolated snippets. The post says the idea differs from regular masked diffusion by changing the length of the input rather than only masking tokens, and it is meant to preserve “non-local information” that may disappear in fragmented retrieval. The author reports only basic tests on small untrained models such as Qwen2.5 7B, with occasional end-to-end success but no reliable improvement yet over a cheap dense read.
+A free online book titled "Introduction to Compilers and Language Design" walks readers through building a working C-style compiler. It presents compiler construction and related language design ideas as a step-by-step educational resource. This is useful for students and developers who want a practical path into compiler construction without paying for a course or textbook. Resources like this help lower the barrier to learning how programming languages are implemented. The discussion suggests the material is more narrowly focused on compiler implementation than the title implies, with repeated attention to C and its quirks. One commenter who took Dr. Thain's class said the course project closely matched the sample project and was valuable when followed end to end.
 
-reddit · r/MachineLearning · /u/Bravo_Oscar_Zulu · Jul 4, 10:56
+hackernews · AlexeyBrin · Jul 5, 11:54 · [Discussion](https://news.ycombinator.com/item?id=48793454)
 
-**Background**: Large language models have a fixed context window, which limits how much text they can read at once. When input is too long, systems often use retrieval, chunking, summarization, or compaction to fit it inside that limit. Semantic compression aims to keep meaning while shortening text, and diffusion-inspired methods usually borrow the idea of moving from coarse structure to fine detail.
+**Background**: A compiler translates source code written in a high-level language into code a machine can execute. Compiler construction usually covers topics such as lexical analysis, parsing, semantic checking, and code generation. Language design is the broader topic of deciding what features a programming language should have and how those features affect implementation.
 
 <details><summary>References</summary>
 <ul>
-<li><a href="https://arxiv.org/abs/2312.09571">[2312.09571] Extending Context Window of Large Language Models...</a></li>
-<li><a href="https://pub.towardsai.net/you-dont-need-rag-you-need-semantic-compression-74d41d65bac1">You Don’t Need RAG. You Need Semantic Compression . | Towards AI</a></li>
+<li><a href="https://www.ida.liu.se/~TDDB44/lessons/lessons2020/TDDB44Seminar1.pdf">COMPILER CONSTRUCTION</a></li>
+<li><a href="https://github.com/timpg18/C-Style_Compiler">GitHub - timpg18/ C - Style _ Compiler : A lightweight compiler for...</a></li>
 
 </ul>
 </details>
 
-**Tags**: `#long-context LLMs`, `#semantic compression`, `#prompt engineering`, `#diffusion-inspired methods`, `#LLM memory`
+**Discussion**: The comments are generally positive, with several readers praising the clarity and educational value of the material. The main criticism is that the scope seems narrower than the title suggests, since it focuses more on compilers and C-specific details than on broader language design.
+
+**Tags**: `#compilers`, `#programming languages`, `#education`, `#systems`, `#language design`
+
+---
+
+<a id="item-12"></a>
+## [Buttons Should Do One Clear Thing](https://unsung.aresluna.org/if-youre-a-button-you-have-one-job/) ⭐️ 6.0/10
+
+The post argues that a UI button should have one clear, predictable job rather than trying to handle multiple meanings or hidden edge cases. It frames button behavior as a design principle and ties it to related interface concerns such as accidental clicks, debouncing, and semantic clarity. Buttons are one of the most common UI controls, so small design choices here affect usability across many products. The essay is relevant to frontend and UX teams because it reinforces the value of simple, legible interactions that reduce user confusion and mistakes. The discussion highlights a tension between ideal simplicity and real-world behavior, especially when users double-click, click too fast, or assume the first click did not register. The comments also point to debouncing as a practical mitigation, where repeated input is delayed or coalesced so the interface does not trigger the same action multiple times.
+
+hackernews · nozzlegear · Jul 5, 02:01 · [Discussion](https://news.ycombinator.com/item?id=48790689)
+
+**Background**: In UI design, a button is expected to communicate an action clearly and respond consistently when pressed. Designers often talk about affordances and semantics: affordances help users understand what can be done, while semantics describe what the control means in context. Debouncing is a related engineering technique used to ignore rapid repeated triggers, which can matter when a button's action should only happen once.
+
+<details><summary>References</summary>
+<ul>
+<li><a href="https://medium.com/@code.sachin/making-sense-of-debouncing-in-javascript-input-change-9a91d02738b6">Making Sense of Debouncing in JavaScript: Input Change | Medium</a></li>
+<li><a href="https://javascript.plainenglish.io/understanding-debouncing-in-javascript-a-practical-guide-0e18529723ce">Debouncing in JavaScript: A Practical Guide | by Eishta</a></li>
+<li><a href="https://ixdf.org/literature/topics/affordances">What are Affordances ? — updated 2026 | IxDF</a></li>
+
+</ul>
+</details>
+
+**Discussion**: The comments were broadly supportive of the simplicity argument, but several readers pushed back on the idea that buttons always have only one job. A recurring counterpoint was that real interfaces must handle edge cases like accidental double-clicks and user uncertainty, so good button design often includes debouncing or other safeguards.
+
+**Tags**: `#ui-design`, `#frontend`, `#user-experience`, `#interaction-design`, `#hacker-news`
+
+---
+
+<a id="item-13"></a>
+## [Phosh 0.56.0 Released for Linux Phones](https://phosh.mobi/releases/rel-0.56.0/) ⭐️ 6.0/10
+
+Phosh 0.56.0 has been released as a new version of the mobile Linux shell. The release continues the project’s work on a daily-usable graphical user environment for phones and other touch devices running mainline Linux. Phosh is one of the main user interfaces used by Linux mobile distributions, so each release helps improve the practical experience for people trying to run Linux on phones and tablets. It also reflects the broader effort to make mobile Linux more usable and coherent, even if it remains a niche compared with Android and iOS. The project describes Phosh as a robust, easy-to-use graphical user environment for mobile devices running mainline Linux, and as a Wayland shell built with GNOME technologies. Community reactions in the discussion suggest it is already useful on some hardware, but broader mobile adoption still faces familiar hurdles such as app support, tap-to-pay, and camera quality.
+
+hackernews · edward · Jul 5, 13:28 · [Discussion](https://news.ycombinator.com/item?id=48794179)
+
+**Background**: Phosh is short for “phone shell,” and it is a graphical shell for mobile devices rather than a full standalone operating system. It is commonly used by mobile Linux distributions, where it serves as the touch-oriented interface on top of the underlying Linux system. Because it targets phones and tablets, it has to handle mobile-specific needs that desktop Linux normally does not prioritize.
+
+<details><summary>References</summary>
+<ul>
+<li><a href="https://phosh.mobi/about/">About Phosh · Phosh</a></li>
+<li><a href="https://github.com/pld-linux/phosh">GitHub - pld- linux / phosh : Phosh - pure wayland shell for mobile ...</a></li>
+<li><a href="https://manpages.ubuntu.com/manpages/resolute/man1/phosh.1.html">Ubuntu Manpage: phosh - Phosh - A phone shell</a></li>
+
+</ul>
+</details>
+
+**Discussion**: The discussion was mixed but generally practical. Some commenters said Phosh’s website and positioning are unclear to newcomers, while others praised its real-world usability on devices like the Surface Go 2 and noted responsive support. A few commenters remained skeptical about Linux mobile competing broadly with mainstream mobile OSes because of ecosystem gaps like apps and payments.
+
+**Tags**: `#Linux mobile`, `#UI release`, `#open source`, `#Phosh`, `#mobile OS`
+
+---
+
+<a id="item-14"></a>
+## [sqlite-utils 4.0rc2 Shaped by Claude Fable](https://simonwillison.net/2026/Jul/5/sqlite-utils-fable/#atom-everything) ⭐️ 6.0/10
+
+Simon Willison released sqlite-utils 4.0rc2 after using Claude Fable to do a final review before the stable 4.0 launch. In that review, the agent found several serious issues, including a delete_where() bug that could leave transactions uncommitted and cause data loss. This is a concrete example of AI-assisted code review catching release-blocking defects in a real Python library, not just suggesting code edits. It suggests agents like Claude Fable may be useful for maintenance-heavy work such as SemVer-sensitive release engineering, where avoiding accidental breaking changes matters. The review took 37 prompts, produced 34 commits, and changed 30 files, with +1,321 and -190 lines. Willison noted the worst issue was delete_where() leaving the connection in an open transaction state, and he used the process to improve the release before shipping 4.0 stable.
+
+rss · Simon Willison · Jul 5, 01:00
+
+**Background**: sqlite-utils is a Python library and CLI for working with SQLite databases, and major-version releases are expected to follow SemVer so that incompatible changes are rare and deliberate. Claude Fable is Anthropic’s agentic coding/review tool, designed to run longer tasks and catch issues in code reviews before they ship.
+
+<details><summary>References</summary>
+<ul>
+<li><a href="https://www.anthropic.com/claude/fable">Claude Fable \ Anthropic</a></li>
+<li><a href="https://pypi.org/project/sqlite-utils/4.0rc2/">sqlite - utils · PyPI</a></li>
+
+</ul>
+</details>
+
+**Tags**: `#sqlite-utils`, `#AI-assisted development`, `#release engineering`, `#software maintenance`, `#Claude Fable`
+
+---
+
+<a id="item-15"></a>
+## [AI Linked to Slumping Developer Course Sales](https://simonwillison.net/2026/Jul/3/josh-w-comeau/#atom-everything) ⭐️ 6.0/10
+
+Josh W. Comeau said his newly launched course, Whimsical Animations, is tracking at roughly one-third of a typical launch, and that his older courses are also selling far less than last year. He attributed the drop largely to AI, saying it is both reducing interest in learning dev skills and giving people LLM-based tutoring instead of buying courses. If this pattern is real beyond one creator, it suggests AI may be reshaping the market for developer education by shrinking demand for paid courses. That would affect course creators, online learning platforms, and the broader creator economy that depends on people paying for structured instruction. Comeau described a "double whammy": uncertainty about whether developer jobs will still exist soon, plus LLMs that can act as personalized tutors. He also said multiple course creators are seeing the same trend, with revenue down 50%+ and fewer people engaging with their content, though this is anecdotal rather than a formal study.
+
+rss · Simon Willison · Jul 3, 21:25
+
+**Background**: Developer education businesses sell courses that teach programming and related skills, often through structured lessons and paid access. LLMs can now answer questions, explain concepts, and adapt explanations to a learner's needs, which may make some people feel a course is less necessary. The cited search results also reflect the broader idea that AI in education is being discussed as both an opportunity and a challenge.
+
+<details><summary>References</summary>
+<ul>
+<li><a href="https://arxiv.org/pdf/2504.04815">Beyond Answers: How LLMs Can Pursue</a></li>
+<li><a href="https://www.eritheialabs.com/blog/llms-in-education-empowering-personalized-learning-experiences">LLMs in Education: Personalized Learning Revolution | Eritheia Labs</a></li>
+<li><a href="https://www.unesco.org/en/digital-education/artificial-intelligence">Artificial intelligence in education - AI | UNESCO</a></li>
+
+</ul>
+</details>
+
+**Tags**: `#AI impact`, `#developer education`, `#online courses`, `#creator economy`, `#LLMs`
+
+---
+
+<a id="item-16"></a>
+## [Let Claude Code Judge When to Delegate](https://simonwillison.net/2026/Jul/3/judgement/#atom-everything) ⭐️ 6.0/10
+
+Simon Willison describes a prompt tip from a Fireside Chat with the Claude Code team: instead of hard-coding rules for tests or model choice, tell Fable to use its own judgment. He says he prompted Claude Code to choose a lower-power model in a subagent for coding tasks, and Claude saved that preference as a reusable project memory. The tip is a practical way to reduce token and cost usage while still letting the main model handle judgment-heavy work. For teams using Claude Code or similar coding agents, it suggests a simpler workflow that can preserve capacity without manually micromanaging every task. Willison’s example separates work by complexity: substantive implementation can go to Sonnet, while trivial or mechanical edits can go to Haiku, with the main loop reviewing results before committing. The post also notes that Fable is positioned as Anthropic’s most capable coding model for ambitious, long-running projects, including automated testing and multi-day sessions.
+
+rss · Simon Willison · Jul 3, 18:51
+
+**Background**: Claude Code is Anthropic’s coding assistant workflow, and Fable is described as a high-end model for ambitious software tasks. Prompting an agent to use “its own judgment” means the user sets a policy goal rather than rigid rules, allowing the model to decide when to test or delegate. Subagents are smaller helper runs that can handle narrower tasks at lower cost.
+
+<details><summary>References</summary>
+<ul>
+<li><a href="https://www.anthropic.com/claude/fable">Claude Fable \ Anthropic</a></li>
+
+</ul>
+</details>
+
+**Tags**: `#prompt engineering`, `#AI coding assistants`, `#Claude Code`, `#workflow optimization`, `#LLM usage`
+
+---
+
+<a id="item-17"></a>
+## [Open-source neural network shape validator](https://www.reddit.com/r/MachineLearning/comments/1unvbdb/i_built_a_open_source_neural_network_shape/) ⭐️ 6.0/10
+
+A Reddit user introduced Tensey, an open-source visual neural network editor that validates tensor shapes while you design. It also counts parameters, estimates FLOPs and VRAM, and exports runnable PyTorch code. This kind of tool can help ML engineers catch shape mismatches, incompatible residual connections, and bad Linear-layer wiring before wasting GPU time. That makes architecture prototyping faster and less error-prone, especially for teams iterating on custom models. The project claims proper shape inference across 63 operations, which is the core technical feature behind its validation checks. It is MIT licensed and available on both the web and GitHub, but it is still a niche design-time utility rather than a training or inference framework.
+
+reddit · r/MachineLearning · /u/uselessfuh · Jul 5, 06:58
+
+**Background**: In neural networks, tensor shapes describe the dimensions of data as it flows through layers, such as convolution, residual blocks, and linear layers. If shapes do not match, the model can fail at runtime or produce incorrect connections. Tools that estimate FLOPs and VRAM try to predict compute cost and memory use before a model is trained or deployed. PyTorch is a widely used deep learning framework, so exporting code that runs in PyTorch makes the editor more practical for real workflows.
+
+<details><summary>References</summary>
+<ul>
+<li><a href="https://playground.tensorflow.org/">A Neural Network Playground</a></li>
+<li><a href="https://github.com/lutzroeder/netron">GitHub - lutzroeder/netron: Visualizer for neural network , deep...</a></li>
+
+</ul>
+</details>
+
+**Tags**: `#machine learning`, `#neural networks`, `#developer tools`, `#PyTorch`, `#open source`
 
 ---
