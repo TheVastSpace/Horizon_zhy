@@ -121,7 +121,7 @@
   "webhook": {
     "enabled": true,
     "url_env": "HORIZON_WEBHOOK_URL",
-    "delivery": "summary",
+    "delivery": "always",
     "platform": "feishu",
     "layout": "collapsible",
     "languages": ["zh"]
